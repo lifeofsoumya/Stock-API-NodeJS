@@ -4,6 +4,8 @@ const express = require('express');
 
 const app = express()
 
+app.use(express.json());
+
 async function scrapeChannel(url) { // init function with to be scraped url argument
 
     const browser = await puppeteer.launch();      // launch puppeteer
@@ -29,44 +31,54 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const lowVal = await text.jsonValue();
 
 
-    let title = []
+    // page.evaluate(() => {
+    //     let allTitles = document.querySelectorAll('.mtp438CompanyName');
+    // console.log("queryselect")
 
-    page.evaluate(() => {
-        let allTitles = document.querySelectorAll('.mtp438CompanyName');
-        allTitles.forEach(
-            title.push(allTitles)
-        )
-    })
+    //     allTitles.forEach(
+    //         title.push(allTitles)
+    //     )
+    // })
 
-    let currentPrice = []
 
-    page.evaluate(() => {
-        let allPrices = document.querySelectorAll('.fw500');
-        allPrices.forEach(
-            currentPrice.push(allPrices)
-        )
-    })
+
+    // page.evaluate(() => {
+    //     let allPrices = document.querySelectorAll('.fw500');
+    //     allPrices.forEach(
+    //         currentPrice.push(allPrices)
+    //     )
+    // })
 
     browser.close();    // close the temporary headless browser    
+
+    var stockApi = {
+        stocksName : name,
+        
+
+    
+    
+    }
+    console.log(stockApi)
 }
 
 scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100'); // passing argument and calling function 
 
 
+// for (var i=0;i<title.length; i++){
+//     for( var j=0; j < currentPrice.length; j++){
+//         stockApi.push(
+//             'stockName: title[i]',
+//             'stockPrice: currentPrice[i]'
+//         )
+//     }
+// }
+
 app.get('/', (req, res)=>{
-        for (var i=0;i<title.length; i++){
-            for( var j=0; j<currentPrice.length; j++){
-                res.send(
-                    `<h3>${title[i]}</h3><br>
-                <h4>${currentPrice[j]}</h4>
-                `
-                )
-            }
-        }
+        res.send(stockApi)
 })
 
 const port = 3000 || process.env.PORT
 
 app.listen(port, () => {
     console.log(`server started at port ${port}`)
-    })
+})
