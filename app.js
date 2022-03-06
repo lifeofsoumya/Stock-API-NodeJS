@@ -1,10 +1,13 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
+
 // const { title } = require('process');
 
 const app = express()
 
 app.use(express.json());
+
+var stockApi
 
 async function scrapeChannel(url) { // init function with to be scraped url argument
 
@@ -55,7 +58,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
 
     browser.close();    // close the temporary headless browser    
 
-    var stockApi = {
+    stockApi = {
         stocksName : name,
         currentPrice: priceVal,
         lowPrice: lowVal,
@@ -78,7 +81,7 @@ scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100'); // pass
 // }
 
 app.get('/', (req, res)=>{
-        res.send("haha")
+        res.send(stockApi)
 })
 
 const port = 3000 || process.env.PORT
