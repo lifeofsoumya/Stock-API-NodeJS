@@ -1,11 +1,19 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
+const cron = require('node-cron');
 
 // const { title } = require('process');
 
 const app = express()
 
 app.use(express.json());
+
+
+cron.schedule('* * * * *', async () => {
+    console.log('cron working')
+    await scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
+}); // calling function & running every 5 hours;
+
 
 var stockApi
 
@@ -68,7 +76,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     console.log(stockApi)
 }
 
-scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100'); // passing argument and calling function 
+// scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
 
 
 // for (var i=0;i<title.length; i++){
@@ -83,6 +91,7 @@ scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100'); // pass
 app.get('/', (req, res)=>{
         res.send(stockApi)
 })
+
 
 const port = 3000 || process.env.PORT
 
