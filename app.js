@@ -18,17 +18,21 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     const text = await el.getProperty('textContent');       // choose type of data needed
     const name = await text.jsonValue();    // extract the data type
 
-    const [el2] = await page.$x('/html/body/div/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[3]');
+    const [el2] = await page.$x('/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[3]/text()');
     const priceSrc = await el2.getProperty('textContent');
-    const priceVal = await text.jsonValue();
+    const priceVal = await priceSrc.jsonValue();
 
-    const [el3] = await page.$x('/html/body/div/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[5]');
-    const highSrc = await el2.getProperty('textContent');
-    const highVal = await text.jsonValue();
+    const [el3] = await page.$x('/html/body/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[5]');
+    const highSrc = await el3.getProperty('textContent');
+    const highVal = await highSrc.jsonValue();
 
     const [el4] = await page.$x('/html/body/div/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[4]');
-    const lowSrc = await el2.getProperty('textContent');
-    const lowVal = await text.jsonValue();
+    const lowSrc = await el4.getProperty('textContent');
+    const lowVal = await lowSrc.jsonValue();
+
+    const [el5] = await page.$x('/html/body/div/div/div[2]/div[2]/div/div/div[1]/div/div/table/tbody/tr[1]/td[3]/div');
+    const downBy = await el5.getProperty('textContent');
+    const downVal = await downBy.jsonValue();
 
 
     // page.evaluate(() => {
@@ -53,10 +57,10 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
 
     var stockApi = {
         stocksName : name,
-        
-
-    
-    
+        currentPrice: priceVal,
+        lowPrice: lowVal,
+        highPrice : highVal,
+        downBy : downVal
     }
     console.log(stockApi)
 }
@@ -74,7 +78,7 @@ scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100'); // pass
 // }
 
 app.get('/', (req, res)=>{
-        res.send(stockApi)
+        res.send("haha")
 })
 
 const port = 3000 || process.env.PORT
