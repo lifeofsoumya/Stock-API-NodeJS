@@ -76,7 +76,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     console.log(stockApi)
 }
 
-// scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
+scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
 
 
 // for (var i=0;i<title.length; i++){
