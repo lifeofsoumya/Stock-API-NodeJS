@@ -64,8 +64,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
     //     )
     // })
 
-    browser.close();    // close the temporary headless browser    
-
+    
     stockApi = {
         stocksName : name,
         currentPrice: priceVal,
@@ -74,6 +73,7 @@ async function scrapeChannel(url) { // init function with to be scraped url argu
         downBy : downVal
     }
     console.log(stockApi)
+    browser.close();    // close the temporary headless browser    
 }
 
 scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
