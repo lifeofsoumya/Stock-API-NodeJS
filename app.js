@@ -1,18 +1,19 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
 const cron = require('node-cron');
+const bodyParser = require('body-parser')
 
 // const { title } = require('process');
 
 const app = express()
 
-app.use(express.json());
+app.use(bodyParser.json());
 
 
 cron.schedule('* * * * *', async () => {
     console.log('cron working')
     await scrapeChannel('https://groww.in/markets/top-losers?index=GIDXNIFTY100')
-}); // calling function & running every 5 hours;
+}); 
 
 
 var stockApi
