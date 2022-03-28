@@ -11,4 +11,6 @@
 
 - Multiple stocks can be tracked with Page evaluate function
 
+- User Management yet to be added
+
 - LocalHost is working whereas Online server is throwing error.
